@@ -9,6 +9,7 @@ from .baseline import Baseline
 def build_model(cfg):
     model = Baseline(
         backbone_name=cfg.MODEL.BACKBONE_NAME,
+        backbone_location=cfg.MODEL.PRETRAINED_MODEL_PATH,
         seqwise_predictor_name=cfg.MODEL.SEQWISE_PREDICTOR_NAME,
         elewise_predictor_name=cfg.MODEL.ELEWISE_PREDICTOR_NAME,
         pairwise_predictor_name=cfg.MODEL.PAIRWISE_PREDICTOR_NAME,

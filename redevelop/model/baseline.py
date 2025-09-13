@@ -16,6 +16,7 @@ from torch.cuda.amp import autocast
 class Baseline(nn.Module):
     def __init__(self,
                  backbone_name,
+                 backbone_location=None,
                  seqwise_predictor_name="none",
                  elewise_predictor_name="none",
                  pairwise_predictor_name="none",
@@ -25,6 +26,7 @@ class Baseline(nn.Module):
         super(Baseline, self).__init__()
         # 0.Configuration
         self.backbone_name = backbone_name
+        self.backbone_location = backbone_location
 
         self.seqwise_predictor_name = seqwise_predictor_name
         self.elewise_predictor_name = elewise_predictor_name
@@ -49,7 +51,7 @@ class Baseline(nn.Module):
         }
 
         # 1.Build backbone
-        self.backbone, self.backbone_alphabet = choose_backbone(self.backbone_name)
+        self.backbone, self.backbone_alphabet = choose_backbone(self.backbone_name, self.backbone_location)
         self.backbone.lm_head.requires_grad_(False)
 
         self.backbone_control_info = {"return_contacts": False, "need_head_weights": False, "repr_layers": []}
